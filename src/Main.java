@@ -1,5 +1,3 @@
-package Info;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +7,7 @@ import javafx.stage.Stage;
 import javax.json.JsonReader;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Arrays;
 
 public class Main extends Application {
 
@@ -35,6 +34,12 @@ public class Main extends Application {
                 return new File(current, name).isDirectory();
             }
         });
+        for (int x = 0; x < movieTitles.length; x++) {
+            if (movieTitles[x].contains("(")) {
+                movieTitles[x] = movieTitles[x].substring(0, movieTitles[x].indexOf("("));
+            }
+        }
+        System.out.println(Arrays.toString(movieTitles));
         JsonReader js;
     }
 
