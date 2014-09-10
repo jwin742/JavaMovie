@@ -31,30 +31,68 @@ public class Movie {
         this.source = source;
     }
 
+    /**
+     * Returns the Move Title.
+     *
+     * @return The movie title.
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Returns the movies release year.
+     *
+     * @return The movies release year.
+     */
     public Date getReleaseYear() {
         return releaseYear;
     }
 
+    /**
+     * Returns a JavaFx image of the poster
+     *
+     * @return The movie poster.
+     */
     public Image getPoster() {
         return poster;
     }
 
+    /**
+     * Returns the movie's rating on a scale of 1 - 10
+     *
+     * @return The movie's rating
+     */
     public double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    /**
+     * Lets the user set their own rating for the movie
+     *
+     * @param rating The users rating.
+     */
+    public void setRating(double rating) throws IllegalArgumentException {
+        if (rating > 10) { throw new IllegalArgumentException("Rating was greater then 10."); }
+        if (rating < 0) {throw new IllegalArgumentException("Rating was less then 0."); }
         this.rating = rating;
     }
 
+    /**
+     * Returns the JsonObject from TMDb API
+     *
+     * @return A JsonObject representing the Movie
+     */
     public JsonObject getSource() {
         return source;
     }
 
+    /**
+     * Sets the JsonObject that the movie is based on.
+     * May remove
+     *
+     * @param source A Json object that represents the movie.
+     */
     public void setSource(JsonObject source) {
         this.source = source;
     }
