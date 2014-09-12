@@ -42,7 +42,7 @@ public class MovieList {
      * @return true if there is another movie after it in the list.
      */
     public boolean hasNext() {
-        return currentIndex >= movieArrayList.size();
+        return currentIndex <= movieArrayList.size() - 2;
     }
 
     /**
@@ -51,7 +51,7 @@ public class MovieList {
      * @return true if there is another movie after it in the list.
      */
     public boolean hasPrev() {
-        return currentIndex == 0;
+        return currentIndex != 0;
     }
 
     /**

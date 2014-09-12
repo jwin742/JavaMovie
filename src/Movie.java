@@ -1,8 +1,6 @@
 import javafx.scene.image.Image;
 
 import javax.json.JsonObject;
-import java.io.File;
-import java.util.Date;
 
 /**
  * A class representing one users movie
@@ -11,7 +9,7 @@ import java.util.Date;
 public class Movie {
 
     private String title;
-    private Date releaseYear = new Date();
+    private String releaseDate;
     private Image poster;
     private double rating;
     private JsonObject source;
@@ -19,13 +17,14 @@ public class Movie {
     public Movie(JsonObject source) {
         this.source = source;
         this.title = source.getString("title");
-        this.releaseYear.setTime(Date.parse(source.getString("release_date")));
+        this.releaseDate = source.getString("release_date");
         this.poster = new Image("https://image.tmdb.org/t/p/original" + source.getString("poster_path"));
+        this.rating = source.getJsonNumber("vote_average").doubleValue();
     }
 
-    public Movie(String title, Date releaseYear, Image poster, double rating, JsonObject source) {
+    public Movie(String title, String releaseDate, Image poster, double rating, JsonObject source) {
         this.title = title;
-        this.releaseYear = releaseYear;
+        this.releaseDate = releaseDate;
         this.poster = poster;
         this.rating = rating;
         this.source = source;
@@ -45,8 +44,8 @@ public class Movie {
      *
      * @return The movies release year.
      */
-    public Date getReleaseYear() {
-        return releaseYear;
+    public String getReleaseDate() {
+        return releaseDate;
     }
 
     /**
@@ -104,7 +103,7 @@ public class Movie {
 
         Movie movie = (Movie) o;
 
-        if (!releaseYear.equals(movie.releaseYear)) return false;
+        if (!releaseDate.equals(movie.releaseDate)) return false;
         if (source != null ? !source.equals(movie.source) : movie.source != null) return false;
         if (!title.equals(movie.title)) return false;
 
@@ -114,7 +113,7 @@ public class Movie {
     @Override
     public int hashCode() {
         int result = title.hashCode();
-        result = 31 * result + releaseYear.hashCode();
+        result = 31 * result + releaseDate.hashCode();
         result = 31 * result + (source != null ? source.hashCode() : 0);
         return result;
     }
@@ -122,11 +121,18 @@ public class Movie {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(title + "{");
-        sb.append(" releaseYear=").append(releaseYear);
+        sb.append(" releaseDate=").append(releaseDate);
         sb.append(", poster=").append(poster);
         sb.append(", rating=").append(rating);
         sb.append(", source=").append(source);
         sb.append(" }");
+        return sb.toString();
+    }
+
+    public String toPrettyString() {
+        final StringBuilder sb = new StringBuilder(title + "\n");
+        sb.append("Release Date: ").append(releaseDate).append("\n");
+        sb.append("Rating: ").append(rating).append("\n");
         return sb.toString();
     }
 }
